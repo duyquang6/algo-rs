@@ -30,7 +30,7 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_count_good_numbers() {
+    fn test_find_relative_ranks() {
         assert_eq!(
             Solution::find_relative_ranks(vec![10, 3, 8, 9, 4]),
             ["Gold Medal", "5", "Bronze Medal", "Silver Medal", "4"]
