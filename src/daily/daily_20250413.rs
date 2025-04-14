@@ -5,7 +5,7 @@ struct Solution;
 const MOD: i64 = 1e9 as i64 + 7;
 impl Solution {
     pub fn count_good_numbers(n: i64) -> i32 {
-        return ((fast_exponential(5, (n + 1) >> 1) * fast_exponential(4, n >> 1)) % MOD) as i32;
+        ((fast_exponential(5, (n + 1) >> 1) * fast_exponential(4, n >> 1)) % MOD) as i32
     }
 }
 
