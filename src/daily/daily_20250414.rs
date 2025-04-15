@@ -9,8 +9,7 @@ impl Solution {
             for j in i + 1..n - 1 {
                 let vj = arr[j];
 
-                for k in j + 1..n {
-                    let vk = arr[k];
+                for &vk in &arr[j + 1..n] {
                     if (vi - vj).abs() <= a && (vj - vk).abs() <= b && (vi - vk).abs() <= c {
                         ans += 1;
                     }
