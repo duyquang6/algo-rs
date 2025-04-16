@@ -38,6 +38,6 @@ mod tests {
     #[test]
     fn test_count_good() {
         assert_eq!(Solution::count_good(vec![3, 1, 4, 3, 2, 2, 4], 2), 4);
-        // assert_eq!(Solution::count_good(vec![1, 1, 1, 1, 1], 10), 1)
+        assert_eq!(Solution::count_good(vec![1, 1, 1, 1, 1], 10), 1);
     }
 }
