@@ -1,1 +1,1 @@
-mod weekly_154;
+mod biweekly_154;

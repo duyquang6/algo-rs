@@ -2,6 +2,15 @@ impl Solution {
     pub fn min_operations(nums: Vec<i32>, k: i32) -> i32 {
         nums.iter().sum::<i32>() % k
     }
+
+    pub fn unique_xor_triplets(nums: Vec<i32>) -> i32 {
+        let n = nums.len() as i32;
+        let mut ans = 1;
+        while ans < n {
+            ans <<= 1;
+        }
+        ans
+    }
 }
 struct Solution;
 
