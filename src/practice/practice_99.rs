@@ -32,38 +32,38 @@ impl Solution {
     // O(1) space
     pub fn optimize_recover_tree(root: &mut Option<Rc<RefCell<TreeNode>>>) {
         let (mut first_elem, mut second_elem) = (None, None);
-        optimize_dfs_inorder(root, &None, &mut first_elem, &mut second_elem);
+        optimize_dfs_inorder(root, &mut None, &mut first_elem, &mut second_elem);
 
-        let second = second_elem.as_ref().unwrap().borrow().val;
-        let first = first_elem.as_ref().unwrap().borrow().val;
-        first_elem.as_mut().unwrap().borrow_mut().val = second;
-        second_elem.as_mut().unwrap().borrow_mut().val = first;
+        if let (Some(mut first), Some(mut second)) = (first_elem, second_elem) {
+            let first_val = first.borrow().val;
+            first.borrow_mut().val = second.borrow().val;
+            second.borrow_mut().val = first_val;
+        }
     }
 }
 
 fn optimize_dfs_inorder(
     root: &Option<Rc<RefCell<TreeNode>>>,
-    prev_elem: &Option<Rc<RefCell<TreeNode>>>,
+    prev_elem: &mut Option<Rc<RefCell<TreeNode>>>,
     first_elem: &mut Option<Rc<RefCell<TreeNode>>>,
     second_elem: &mut Option<Rc<RefCell<TreeNode>>>,
 ) {
-    if root.is_none() {
-        return;
-    }
-
     if let Some(node) = &root {
         let node = node.borrow();
-        optimize_dfs_inorder(&node.left, root, first_elem, second_elem);
-        if let Some(prev_node) = prev_elem {
+        optimize_dfs_inorder(&node.left, prev_elem, first_elem, second_elem);
+
+        if let Some(prev_node) = &prev_elem {
             let prev_node = prev_node.borrow();
-            if node.val < prev_node.val {
-                *first_elem = prev_elem.clone();
+            if node.val < prev_node.val && first_elem.is_none() {
+                *first_elem = prev_elem.clone()
             }
-            if !first_elem.is_none() && node.val < prev_node.val {
-                *second_elem = Some(root.as_ref().unwrap().clone())
+            if node.val < prev_node.val {
+                *second_elem = root.clone()
             }
         }
-        optimize_dfs_inorder(&node.right, root, first_elem, second_elem);
+
+        *prev_elem = root.clone();
+        optimize_dfs_inorder(&node.right, prev_elem, first_elem, second_elem);
     }
 }
 
