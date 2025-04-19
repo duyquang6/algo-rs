@@ -90,12 +90,12 @@ mod tests {
     #[test]
     fn test_calculate() {
         assert_eq!(Solution::calculate(String::from("(1+(4+5+2)-3)+(6+8)")), 23);
-        // assert_eq!(
-        //     Solution::calculate(String::from("(1-(4+5-20)+3)-(-2+6+8)")),
-        //     3
-        // );
+        assert_eq!(
+            Solution::calculate(String::from("(1-(4+5-20)+3)-(-2+6+8)")),
+            3
+        );
 
-        // assert_eq!(Solution::calculate(String::from("-2+1")), -1);
-        // assert_eq!(Solution::calculate(String::from("(2-1)+2")), 3);
+        assert_eq!(Solution::calculate(String::from("-2+1")), -1);
+        assert_eq!(Solution::calculate(String::from("(2-1)+2")), 3);
     }
 }
