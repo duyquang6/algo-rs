@@ -7,5 +7,6 @@ mod daily_20250418;
 mod daily_20250419;
 mod daily_20250420;
 mod daily_20250421;
+mod daily_20250422;
 mod daily_20250423;
 mod daily_20250424;

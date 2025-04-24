@@ -12,7 +12,7 @@ impl Solution {
             (item, cnt + 1)
         });
 
-        // ########## Get by using hashset ##############
+        // ########## get by using hashset ##############
         let cnt_uniq = nums.iter().collect::<HashSet<&i32>>().len();
 
         // ######### the brute force way #########
