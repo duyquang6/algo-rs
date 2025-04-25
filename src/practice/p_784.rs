@@ -19,7 +19,11 @@ fn backtrack(letters: &[u8], cur: &mut String, ans: &mut Vec<String>) {
         cur.push(letters[idx] as char);
         backtrack(letters, cur, ans);
         cur.pop();
-        cur.push((letters[idx] - 32) as char);
+        if letters[idx] >= b'a' && letters[idx] <= b'z' {
+            cur.push((letters[idx] - 32) as char);
+        } else {
+            cur.push((letters[idx] + 32) as char);
+        }
         backtrack(letters, cur, ans);
     }
     cur.pop();
