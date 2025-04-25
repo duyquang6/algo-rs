@@ -1,6 +1,7 @@
 // mod mq_1425;
 mod p_1246;
 mod p_1615;
+mod p_784;
 mod pq_378;
 mod pq_506;
 mod practice_132;
