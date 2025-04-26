@@ -1,6 +1,7 @@
 // mod mq_1425;
 mod p_1246;
 mod p_1615;
+mod p_340;
 mod p_346;
 mod p_348;
 mod p_362;
