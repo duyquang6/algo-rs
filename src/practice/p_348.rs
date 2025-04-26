@@ -1,51 +1,54 @@
-struct HitCounter {
-    queue: Vec<u64>,
-    head: usize,
-    tail: usize,
-    total: i32,
+struct TicTacToe {
+    // boards: Vec<Vec<u8>>,
+    n: i32,
+    rows_count: Vec<[u8; 2]>,
+    cols_count: Vec<[u8; 2]>,
+    diag_count: [u8; 2],
+    anti_diag_count: [u8; 2],
+    done: bool,
 }
 
-impl HitCounter {
-    fn new() -> Self {
+impl TicTacToe {
+    fn new(n: i32) -> Self {
         Self {
-            queue: vec![0; 300],
-            head: 0,
-            tail: 0,
-            total: 0,
+            n,
+            rows_count: vec![[0, 0]; n as usize],
+            cols_count: vec![[0, 0]; n as usize],
+            diag_count: [0, 0],
+            anti_diag_count: [0, 0],
+            done: false,
         }
     }
 
-    fn hit(&mut self, timestamp: i32) {
-        if self.tail == 0 {
-            self.queue[self.tail % 300] = timestamp as u64 * 1000 + 1;
-            self.tail += 1;
+    fn _move(&mut self, row: i32, col: i32, player: i32) -> i32 {
+        if self.done {
+            return -1;
+        }
+
+        let (row, col) = (row as usize, col as usize);
+
+        let player_idx = player as usize - 1;
+        self.rows_count[row][player_idx] += 1;
+        self.cols_count[col][player_idx] += 1;
+        if row == col {
+            self.diag_count[player_idx] += 1;
+        }
+        if row == self.n as usize - col - 1 {
+            self.anti_diag_count[player_idx] += 1;
+        }
+
+        if [
+            self.rows_count[row][player_idx],
+            self.cols_count[col][player_idx],
+            self.diag_count[player_idx],
+            self.anti_diag_count[player_idx],
+        ]
+        .iter()
+        .any(|&count| count == self.n as u8)
+        {
+            player
         } else {
-            let tail_timestamp = self.queue[(self.tail - 1) % 300] / 1000;
-            if tail_timestamp == timestamp as u64 {
-                self.queue[(self.tail - 1) % 300] += 1;
-            } else {
-                self.queue[self.tail % 300] = timestamp as u64 * 1000 + 1;
-                self.tail += 1;
-            }
+            0
         }
-        self.total += 1;
-    }
-
-    fn get_hits(&mut self, timestamp: i32) -> i32 {
-        let start_timestamp = timestamp - 300;
-
-        while self.head < self.tail {
-            let head_item = self.queue[self.head % 300];
-            let head_timestamp = head_item / 1000;
-            if head_timestamp < start_timestamp as u64 {
-                // pop
-                self.total -= (head_item % 1000) as i32;
-                self.head += 1;
-            } else {
-                break;
-            }
-        }
-
-        self.total
     }
 }

@@ -2,6 +2,7 @@
 mod p_1246;
 mod p_1615;
 mod p_348;
+mod p_362;
 mod p_379;
 mod p_384;
 mod p_651;
