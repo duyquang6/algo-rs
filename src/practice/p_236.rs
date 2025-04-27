@@ -60,7 +60,7 @@ fn recur(
     root: &Option<Rc<RefCell<TreeNode>>>,
     p_val: i32,
     q_val: i32,
-) -> (Option<i32>, Option<Rc<RefCell<TreeNode>>>) {
+) -> (bool, Option<Rc<RefCell<TreeNode>>>) {
     // dfs to find p node
     if let Some(node_rc) = root {
         let node = node_rc.borrow();
@@ -71,10 +71,10 @@ fn recur(
             if dfs(&node.left, p_val + q_val - node.val)
                 || dfs(&node.right, p_val + q_val - node.val)
             {
-                return (Some(p_val + q_val), Some(node_rc.clone()));
+                return (true, Some(node_rc.clone()));
             }
             // go upper one level
-            return (Some(node.val), None);
+            return (true, None);
         } else {
             let (found_left, lca_node_left) = recur(&node.left, p_val, q_val);
             let (found_right, lca_node_right) = recur(&node.right, p_val, q_val);
@@ -85,21 +85,18 @@ fn recur(
             if lca_node_right.is_some() {
                 return (found_right, lca_node_right);
             }
-            if found_left.is_some() && found_right.is_some() {
-                return (
-                    found_left.map(|x| x + found_right.unwrap()),
-                    Some(node_rc.clone()),
-                );
+            if found_left && found_right {
+                return (true, Some(node_rc.clone()));
             }
-            if found_left.is_some() {
-                return (found_left, lca_node_left);
+            if found_left {
+                return (found_left, None);
             }
-            if found_right.is_some() {
-                return (found_right, lca_node_right);
+            if found_right {
+                return (found_right, None);
             }
         }
     }
-    (None, None)
+    (false, None)
 }
 
 fn dfs(node: &Option<Rc<RefCell<TreeNode>>>, q_val: i32) -> bool {
