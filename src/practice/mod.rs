@@ -7,6 +7,7 @@ mod p_348;
 mod p_362;
 mod p_379;
 mod p_384;
+mod p_394;
 mod p_651;
 mod p_784;
 mod pq_378;
