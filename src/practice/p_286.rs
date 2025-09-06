@@ -14,7 +14,7 @@ impl Solution {
         for row in 0..rooms.len() {
             for col in 0..rooms[0].len() {
                 if memo[row][col] == -2 {
-                    memo[row][col] = 2147483647
+                    memo[row][col] = i32::MAX
                 }
             }
         }
